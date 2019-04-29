@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <RootNamespace>com.rheagroup.validator</RootNamespace>
+    <Company>RHEA System S.A.</Company>
+    <Title>ECSS-E-TM-10-25A Annex B valiator</Title>
+    <Description>ECSS-E-TM-10-25A Annex B valiator</Description>
+    <Copyright>Copyright © RHEA System S.A.</Copyright>
+    <RepositoryUrl>https://github.com/RHEAGROUP/ECSS-E-TM-10-25-Annex-B-Validator.git</RepositoryUrl>
+    <Authors>Sam</Authors>
+    <Version>0.0.1</Version>
+  </PropertyGroup>
+
+</Project>

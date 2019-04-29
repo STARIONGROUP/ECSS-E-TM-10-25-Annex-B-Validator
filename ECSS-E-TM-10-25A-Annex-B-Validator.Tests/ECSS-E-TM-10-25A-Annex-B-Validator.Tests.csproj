@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>    
+    <RootNamespace>com.rheagroup.validator.tests</RootNamespace>
+    <Company>RHEA System S.A.</Company>
+    <Description>ECSS-E-TM-10-25A Annex B valiator tests</Description>
+    <Copyright>Copyright © RHEA System S.A.</Copyright>
+    <Authors>Sam</Authors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ECSS-E-TM-10-25A-Annex-B-Validator\ECSS-E-TM-10-25A-Annex-B-Validator.csproj" />
+  </ItemGroup>
+
+</Project>
