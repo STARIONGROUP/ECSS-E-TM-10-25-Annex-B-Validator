@@ -13,4 +13,8 @@
     <Version>0.0.1</Version>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="CDP4JsonFileDal-CE" Version="5.0.2" />
+  </ItemGroup>
+
 </Project>

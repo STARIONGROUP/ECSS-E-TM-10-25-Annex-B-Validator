@@ -1,5 +1,5 @@
 ﻿// -------------------------------------------------------------------------------------------------
-// <copyright file="Dummy.cs" company="RHEA System S.A.">
+// <copyright file="ArchiverTestFixture.cs" company="RHEA System S.A.">
 //   Copyright (c) 2019 RHEA System S.A.
 //
 //   This file is part of ECSS-E-TM-10-25A Annex B Validator
@@ -21,7 +21,22 @@
 
 namespace com.rheagroup.validator.tests
 {
-    public class Dummy
+    using NUnit.Framework;
+
+    /// <summary>
+    /// Suite of tests for the <see cref="Archiver"/> class.
+    /// </summary>
+    [TestFixture]
+    public class ArchiverTestFixture
     {
+        private Archiver archiver;
+
+        [SetUp]
+        public void SetUp()
+        {
+            this.archiver = new Archiver();
+        }
+
+
     }
 }

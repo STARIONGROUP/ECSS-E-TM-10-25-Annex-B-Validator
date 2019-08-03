@@ -1,0 +1,20 @@
+{
+  "mediaType": "application/ecss-e-tm-10-25+json",
+  "dataModelVersion": "2.4.1",
+  "exchangeFileFormatVersion": "1.0.0",
+  "creatorOrganization": null,
+  "copyright": "Copyright 2019 © RHEA licensed with Attribution 4.0 International (CC BY 4.0)",
+  "creatorPerson": {
+    "iid": "ae2c15c2-e98b-418b-a1ac-9ff988ddc6c9",
+    "givenName": "Sam",
+    "surname": "Gerené",
+    "email": null
+  },
+  "createdOn": {
+    "local": "2019-04-29T17:00:00.000+01:00",
+    "utc": "2019-04-29T16:00:00.000Z"
+  },
+  "lastModifiedOn": null,
+  "remark": "This is an ECSS-E-TM-10-25 exchange file",
+  "extensions": null
+}

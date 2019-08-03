@@ -21,13 +21,21 @@
 
 namespace com.rheagroup.validator
 {
-    using System;
-
-    public class Program
+    /// <summary>
+    /// The purpose of the <see cref="Archiver"/> class is to create an ECSS-E-TM-10-25A Annex C3 archive based
+    /// on files and folders on disk that utilize the same structure as is prescribed by ECSS-E-TM-10-25A Annex C3
+    /// </summary>
+    public class Archiver
     {
-        public static void Main(string[] args)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Archiver"/> class.
+        /// </summary>
+        public Archiver()
         {
-            Console.WriteLine("Welcome to the Annex B Validator");
+        }
+
+        public void Archive()
+        {
         }
     }
 }

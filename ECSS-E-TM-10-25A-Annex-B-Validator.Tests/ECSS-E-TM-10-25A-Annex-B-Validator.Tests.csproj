@@ -13,4 +13,16 @@
     <ProjectReference Include="..\ECSS-E-TM-10-25A-Annex-B-Validator\ECSS-E-TM-10-25A-Annex-B-Validator.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\annex-c3-model\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
+    <PackageReference Include="Moq" Version="4.10.1" />	  
+    <PackageReference Include="NUnit" Version="3.11.0" />
+    <PackageReference Include="NUnit.Console" Version="3.10.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.13.0" />
+  </ItemGroup>
+
 </Project>
