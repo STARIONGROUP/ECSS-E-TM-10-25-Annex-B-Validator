@@ -9,12 +9,15 @@
     <Description>ECSS-E-TM-10-25A Annex B valiator</Description>
     <Copyright>Copyright © RHEA System S.A.</Copyright>
     <RepositoryUrl>https://github.com/RHEAGROUP/ECSS-E-TM-10-25-Annex-B-Validator.git</RepositoryUrl>
-    <Authors>Sam</Authors>
+    <Authors>Sam Gerené</Authors>
     <Version>0.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CDP4JsonFileDal-CE" Version="5.0.2" />
+    <PackageReference Include="CDP4JsonSerializer-CE" Version="3.0.2" />
+    <PackageReference Include="CDP4Dal-CE" Version="5.0.3" />
+    <PackageReference Include="CDP4Rules-CE" Version="1.0.0" />
+    <PackageReference Include="Microsoft.Extensions.CommandLineUtils" Version="1.1.1" />
   </ItemGroup>
 
 </Project>

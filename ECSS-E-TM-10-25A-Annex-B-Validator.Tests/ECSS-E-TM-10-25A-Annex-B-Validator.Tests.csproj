@@ -1,20 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>    
+    <TargetFramework>netcoreapp2.2</TargetFramework>
     <RootNamespace>com.rheagroup.validator.tests</RootNamespace>
     <Company>RHEA System S.A.</Company>
     <Description>ECSS-E-TM-10-25A Annex B valiator tests</Description>
     <Copyright>Copyright © RHEA System S.A.</Copyright>
-    <Authors>Sam</Authors>
+    <Authors>Sam Gerené</Authors>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ECSS-E-TM-10-25A-Annex-B-Validator\ECSS-E-TM-10-25A-Annex-B-Validator.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Data\annex-c3-model\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,6 +19,24 @@
     <PackageReference Include="NUnit" Version="3.11.0" />
     <PackageReference Include="NUnit.Console" Version="3.10.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.13.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Data\annex-c3-model\EngineeringModels\lalala.keep">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\annex-c3-model\Header.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\annex-c3-model\ModelReferenceDataLibraries\lalala.keep">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\annex-c3-model\SiteDirectory.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\annex-c3-model\SiteReferenceDataLibraries\eb0ea390-1628-4e54-b794-d7b819f7d955.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

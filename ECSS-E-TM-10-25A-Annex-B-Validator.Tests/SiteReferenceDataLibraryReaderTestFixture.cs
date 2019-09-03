@@ -1,5 +1,5 @@
 ﻿// -------------------------------------------------------------------------------------------------
-// <copyright file="ArchiverTestFixture.cs" company="RHEA System S.A.">
+// <copyright file="SiteReferenceDataLibraryReaderTestFixture.cs" company="RHEA System S.A.">
 //   Copyright (c) 2019 RHEA System S.A.
 //
 //   This file is part of ECSS-E-TM-10-25A Annex B Validator
@@ -21,22 +21,33 @@
 
 namespace com.rheagroup.validator.tests
 {
+    using System.IO;
     using NUnit.Framework;
 
     /// <summary>
-    /// Suite of tests for the <see cref="Archiver"/> class.
+    /// Suite of tests for the <see cref="SiteReferenceDataLibraryReader"/> class.
     /// </summary>
     [TestFixture]
-    public class ArchiverTestFixture
+    public class SiteReferenceDataLibraryReaderTestFixture
     {
-        private Archiver archiver;
+        private SiteReferenceDataLibraryReader siteReferenceDataLibraryReader;
+
+        private string validFolderStrucuturePath;
 
         [SetUp]
         public void SetUp()
         {
-            this.archiver = new Archiver();
+            this.siteReferenceDataLibraryReader = new SiteReferenceDataLibraryReader();
+
+            this.validFolderStrucuturePath = Path.Combine(TestContext.CurrentContext.TestDirectory, "Data", "annex-c3-model");
         }
 
+        [Test]
+        public void Verify_that_when_valid_folder_structure_is_read_dtos_are_returned()
+        {
+            var dtos = this.siteReferenceDataLibraryReader.Read(this.validFolderStrucuturePath);
 
+            Assert.That(dtos, Is.Not.Empty);
+        }
     }
 }

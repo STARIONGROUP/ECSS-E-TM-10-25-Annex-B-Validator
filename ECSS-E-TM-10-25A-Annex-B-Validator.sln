@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECSS-E-TM-10-25A-Annex-B-Validator", "ECSS-E-TM-10-25A-Annex-B-Validator\ECSS-E-TM-10-25A-Annex-B-Validator.csproj", "{DB879B99-BB7D-4B85-BBB0-7DD272F74851}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECSS-E-TM-10-25A-Annex-B-Validator", "ECSS-E-TM-10-25A-Annex-B-Validator\ECSS-E-TM-10-25A-Annex-B-Validator.csproj", "{DB879B99-BB7D-4B85-BBB0-7DD272F74851}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECSS-E-TM-10-25A-Annex-B-Validator.Tests", "ECSS-E-TM-10-25A-Annex-B-Validator.Tests\ECSS-E-TM-10-25A-Annex-B-Validator.Tests.csproj", "{197AFC83-69EE-4F32-A0CA-EED4FF872E56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECSS-E-TM-10-25A-Annex-B-Validator.Tests", "ECSS-E-TM-10-25A-Annex-B-Validator.Tests\ECSS-E-TM-10-25A-Annex-B-Validator.Tests.csproj", "{197AFC83-69EE-4F32-A0CA-EED4FF872E56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
