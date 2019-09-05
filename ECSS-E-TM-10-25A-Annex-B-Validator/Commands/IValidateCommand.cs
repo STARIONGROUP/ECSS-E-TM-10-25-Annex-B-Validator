@@ -1,5 +1,5 @@
 ﻿// -------------------------------------------------------------------------------------------------
-// <copyright file="SiteReferenceDataLibraryReaderTestFixture.cs" company="RHEA System S.A.">
+// <copyright file="IValidateCommand.cs" company="RHEA System S.A.">
 //   Copyright (c) 2019 RHEA System S.A.
 //
 //   This file is part of ECSS-E-TM-10-25A Annex B Validator
@@ -19,35 +19,31 @@
 // </copyright>
 // -------------------------------------------------------------------------------------------------
 
-namespace com.rheagroup.validator.tests
+namespace com.rheagroup.validator.Commands
 {
-    using System.IO;
-    using NUnit.Framework;
-
     /// <summary>
-    /// Suite of tests for the <see cref="SiteReferenceDataLibraryReader"/> class.
+    /// Definition of the <see cref="IValidateCommand"/> interface
     /// </summary>
-    [TestFixture]
-    public class SiteReferenceDataLibraryReaderTestFixture
+    public interface IValidateCommand : ICommand
     {
-        private SiteReferenceDataLibraryReader siteReferenceDataLibraryReader;
+        /// <summary>
+        /// Gets or sets the path to the configuration file used to determine which validation rules
+        /// to use. 
+        /// </summary>
+        /// <remarks>
+        /// When the path is not set, all rules are executed.
+        /// </remarks>
+        string Configuration { get; set; }
 
-        private string validFolderStrucuturePath;
+        /// <summary>
+        /// Gets or sets the path to the root directory of an E-TM-10-25 Annex C.3 folder structure.
+        /// </summary>
+        string Source { get; set; }
 
-        [SetUp]
-        public void SetUp()
-        {
-            this.siteReferenceDataLibraryReader = new SiteReferenceDataLibraryReader();
-
-            this.validFolderStrucuturePath = Path.Combine(TestContext.CurrentContext.TestDirectory, "Data", "annex-c3-model");
-        }
-
-        [Test]
-        public void Verify_that_when_valid_folder_structure_is_read_dtos_are_returned()
-        {
-            var dtos = this.siteReferenceDataLibraryReader.Read(this.validFolderStrucuturePath);
-
-            Assert.That(dtos, Is.Not.Empty);
-        }
+        /// <summary>
+        /// Gets or sets the path to the target directory where validation results are stored in the form
+        /// of a report.
+        /// </summary>
+        string Target { get; set; }
     }
 }

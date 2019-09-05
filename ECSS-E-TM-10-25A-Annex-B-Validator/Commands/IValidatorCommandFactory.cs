@@ -1,5 +1,5 @@
 ﻿// -------------------------------------------------------------------------------------------------
-// <copyright file="SiteReferenceDataLibraryReaderTestFixture.cs" company="RHEA System S.A.">
+// <copyright file="IValidatorCommandFactory.cs" company="RHEA System S.A.">
 //   Copyright (c) 2019 RHEA System S.A.
 //
 //   This file is part of ECSS-E-TM-10-25A Annex B Validator
@@ -19,35 +19,21 @@
 // </copyright>
 // -------------------------------------------------------------------------------------------------
 
-namespace com.rheagroup.validator.tests
+namespace com.rheagroup.validator.Commands
 {
-    using System.IO;
-    using NUnit.Framework;
+    using Microsoft.Extensions.CommandLineUtils;
 
     /// <summary>
-    /// Suite of tests for the <see cref="SiteReferenceDataLibraryReader"/> class.
+    /// Definition of the <see cref="IValidatorCommandFactory"/> interface
     /// </summary>
-    [TestFixture]
-    public class SiteReferenceDataLibraryReaderTestFixture
+    public interface IValidatorCommandFactory
     {
-        private SiteReferenceDataLibraryReader siteReferenceDataLibraryReader;
-
-        private string validFolderStrucuturePath;
-
-        [SetUp]
-        public void SetUp()
-        {
-            this.siteReferenceDataLibraryReader = new SiteReferenceDataLibraryReader();
-
-            this.validFolderStrucuturePath = Path.Combine(TestContext.CurrentContext.TestDirectory, "Data", "annex-c3-model");
-        }
-
-        [Test]
-        public void Verify_that_when_valid_folder_structure_is_read_dtos_are_returned()
-        {
-            var dtos = this.siteReferenceDataLibraryReader.Read(this.validFolderStrucuturePath);
-
-            Assert.That(dtos, Is.Not.Empty);
-        }
+        /// <summary>
+        /// Registers the factory with the <see cref="CommandLineApplication"/>
+        /// </summary>
+        /// <param name="commandLineApplication">
+        /// the subject <see cref="CommandLineApplication"/>
+        /// </param>
+        void Register(CommandLineApplication commandLineApplication);
     }
 }

@@ -1,5 +1,5 @@
 ﻿// -------------------------------------------------------------------------------------------------
-// <copyright file="SiteReferenceDataLibraryReaderTestFixture.cs" company="RHEA System S.A.">
+// <copyright file="IResourceLoader.cs" company="RHEA System S.A.">
 //   Copyright (c) 2019 RHEA System S.A.
 //
 //   This file is part of ECSS-E-TM-10-25A Annex B Validator
@@ -19,35 +19,22 @@
 // </copyright>
 // -------------------------------------------------------------------------------------------------
 
-namespace com.rheagroup.validator.tests
+namespace com.rheagroup.validator.Resources
 {
-    using System.IO;
-    using NUnit.Framework;
-
     /// <summary>
-    /// Suite of tests for the <see cref="SiteReferenceDataLibraryReader"/> class.
+    /// Definition of the interface used to load (embedded) resources
     /// </summary>
-    [TestFixture]
-    public class SiteReferenceDataLibraryReaderTestFixture
+    public interface IResourceLoader
     {
-        private SiteReferenceDataLibraryReader siteReferenceDataLibraryReader;
-
-        private string validFolderStrucuturePath;
-
-        [SetUp]
-        public void SetUp()
-        {
-            this.siteReferenceDataLibraryReader = new SiteReferenceDataLibraryReader();
-
-            this.validFolderStrucuturePath = Path.Combine(TestContext.CurrentContext.TestDirectory, "Data", "annex-c3-model");
-        }
-
-        [Test]
-        public void Verify_that_when_valid_folder_structure_is_read_dtos_are_returned()
-        {
-            var dtos = this.siteReferenceDataLibraryReader.Read(this.validFolderStrucuturePath);
-
-            Assert.That(dtos, Is.Not.Empty);
-        }
+        /// <summary>
+        /// Load an embedded resource
+        /// </summary>
+        /// <param name="path">
+        /// The path of the embedded resource
+        /// </param>
+        /// <returns>
+        /// a string containing the contents of the embedded resource
+        /// </returns>
+        string LoadEmbeddedResource(string path);
     }
 }

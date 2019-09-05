@@ -15,19 +15,128 @@
 //   GNU General Public License for more details.
 //
 //   You should have received a copy of the GNU General Public License
-//   along with Foobar.  If not, see<http://www.gnu.org/licenses/>.
+//   along with ECSS-E-TM-10-25A Annex B Validator. If not, see<http://www.gnu.org/licenses/>.
 // </copyright>
 // -------------------------------------------------------------------------------------------------
+
+using com.rheagroup.validator.Reporting;
 
 namespace com.rheagroup.validator
 {
     using System;
+    using Autofac;
+    using AutofacSerilogIntegration;
+    using com.rheagroup.validator.Commands;
+    using com.rheagroup.validator.Resources;
+    using Microsoft.Extensions.CommandLineUtils;
+    using Microsoft.Extensions.Configuration;
+    using Serilog;
 
+    /// <summary>
+    /// Command-line application to validate an E-TM-10-25 Annex B population.
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// Inversion of Control container
+        /// </summary>
+        private static IContainer Container { get; set; }
+
+        /// <summary>
+        /// main entry point of the application
+        /// </summary>
+        /// <param name="args">
+        /// The command line arguments
+        /// </param>
         public static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to the Annex B Validator");
+            var configuration = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(configuration)
+                .CreateLogger();
+
+            Container = ConfigureContainer();
+
+            ConfigureCommandLineApplication(args);
+        }
+
+        /// <summary>
+        /// Configure the IOC container
+        /// </summary>
+        /// <returns>
+        /// an instance of <see cref="IContainer"/>
+        /// </returns>
+        private static IContainer ConfigureContainer()
+        {
+            Log.Logger.Debug("Configure IoC Container");
+
+            var builder = new ContainerBuilder();
+
+            builder.RegisterType<com.rheagroup.validator.Resources.ResourceLoader>().As<IResourceLoader>();
+            
+            builder.RegisterType<ReportingService>().As<IReportingService>();
+            builder.RegisterType<ValidateCommand>().As<IValidateCommand>();
+            builder.RegisterType<ValidatorCommandFactory>().As<IValidatorCommandFactory>();
+            
+            builder.RegisterLogger();
+
+            Log.Logger.Debug("IoC Container Configured");
+
+            return builder.Build();
+        }
+
+        /// <summary>
+        /// Configure the <see cref="CommandLineApplication"/> with actions
+        /// </summary>
+        /// <param name="args">
+        /// The command line arguments
+        /// </param>
+        public static void ConfigureCommandLineApplication(string[] args)
+        {
+            Log.Logger.Debug("Configure Command Line Arguments");
+
+            var commandLineApplication = new CommandLineApplication();
+            commandLineApplication.Name = "E-TM-10-25-Annex-B-Validator";
+            commandLineApplication.Description = "Console application to validate an E-TM-10-25 Annex B population";
+
+            commandLineApplication.HelpOption("-?|--help");
+
+            commandLineApplication.OnExecute(() =>
+            {
+                Console.WriteLine();
+                Console.WriteLine("        use -? or --help to display help");
+                return 0;
+            });
+
+            using (var scope = Container.BeginLifetimeScope())
+            {
+                var validatorversion = QueryValidatorVersion();
+
+                Console.WriteLine(scope.Resolve<Resources.IResourceLoader>().
+                    LoadEmbeddedResource("com.rheagroup.validator.Resources.ascii-art.txt")
+                    .Replace("validatorversion", validatorversion));
+
+                commandLineApplication.Command("validate", scope.Resolve<IValidatorCommandFactory>().Register);
+            }
+
+            commandLineApplication.Execute(args);
+
+            Log.Logger.Debug("Command Line Arguments Configured");
+        }
+
+        /// <summary>
+        /// queries the version number from the executing assembly
+        /// </summary>
+        /// <returns>
+        /// a string representation of the version of the application
+        /// </returns>
+        private static string QueryValidatorVersion()
+        {
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            return assembly.GetName().Version.ToString();
         }
     }
 }
