@@ -18,6 +18,38 @@ Additional permission under GNU GPL version 3 section 7
 
 If you modify this Program, or any covered work, by linking or combining it with the CDP4-SDK (https://github.com/RHEAGROUP/CDP4-SDK-Community-Edition), the licensors of this Program grant you additional permission to convey the resulting work.
 
-If you modify this Program, or any covered work, by linking or combining it with Newtonsoft.Json (or a modified version of that library), containing parts covered by the terms of MIT License, the licensors of this Program grant you additional permission to convey the resulting work.
+If you modify this Program, or any covered work, by linking or combining it with Newtonsoft.Json (or a modified version of that library), containing parts covered by the terms of the MIT License, the licensors of this Program grant you additional permission to convey the resulting work.
 
-If you modify this Program, or any covered work, by linking or combining it with NLog (or a modified version of that library), containing parts covered by the terms of BSD 3-clause "New" or "Revised" License, the licensors of this Program grant you additional permission to convey the resulting work.
+If you modify this Program, or any covered work, by linking or combining it with Autofac (or a modified version of that library), containing parts covered by the terms of the MIT License, the licensors of this Program grant you additional permission to convey the resulting work.
+
+If you modify this Program, or any covered work, by linking or combining it with AutofacSerilogIntegration (or a modified version of that library), containing parts covered by the terms of the Apache 2.0 License, the licensors of this Program grant you additional permission to convey the resulting work.
+
+If you modify this Program, or any covered work, by linking or combining it with Microsoft.Extensions.Configuration (or a modified version of that library), containing parts covered by the terms of the Apache 2.0 License, the licensors of this Program grant you additional permission to convey the resulting work.
+
+If you modify this Program, or any covered work, by linking or combining it with Microsoft.Extensions.Configuration.FileExtensions (or a modified version of that library), containing parts covered by the terms of the Apache 2.0 License, the licensors of this Program grant you additional permission to convey the resulting work.
+
+If you modify this Program, or any covered work, by linking or combining it with Microsoft.Extensions.Configuration.Json (or a modified version of that library), containing parts covered by the terms of the Apache 2.0 License, the licensors of this Program grant you additional permission to convey the resulting work.
+
+If you modify this Program, or any covered work, by linking or combining it with Microsoft.Extensions.CommandLineUtils (or a modified version of that library), containing parts covered by the terms of the  MS-.NET-Library-JS License, the licensors of this Program grant you additional permission to convey the resulting work.
+
+If you modify this Program, or any covered work, by linking or combining it with Serilog (or a modified version of that library), containing parts covered by the terms of the Apache 2.0 License, the licensors of this Program grant you additional permission to convey the resulting work.
+
+If you modify this Program, or any covered work, by linking or combining it with Serilog.Enrichers.Environment (or a modified version of that library), containing parts covered by the terms of the Apache 2.0 License, the licensors of this Program grant you additional permission to convey the resulting work.
+
+If you modify this Program, or any covered work, by linking or combining it with Serilog.Enrichers.Thread (or a modified version of that library), containing parts covered by the terms of the Apache 2.0 License, the licensors of this Program grant you additional permission to convey the resulting work.
+
+If you modify this Program, or any covered work, by linking or combining it with Serilog.Settings.Configuration (or a modified version of that library), containing parts covered by the terms of the Apache 2.0 License, the licensors of this Program grant you additional permission to convey the resulting work.
+
+If you modify this Program, or any covered work, by linking or combining it with Serilog.Sinks.Console (or a modified version of that library), containing parts covered by the terms of the Apache 2.0 License, the licensors of this Program grant you additional permission to convey the resulting work.
+
+If you modify this Program, or any covered work, by linking or combining it with Serilog.Sinks.File (or a modified version of that library), containing parts covered by the terms of the Apache 2.0 License, the licensors of this Program grant you additional permission to convey the resulting work.
+
+If you modify this Program, or any covered work, by linking or combining it with Microsoft.NET.Test.Sdk (or a modified version of that library), containing parts covered by the terms of the MICROSOFT SOFTWARE LICENSE TERMS - MICROSOFT .NET LIBRARY (net_library_eula_enu) License, the licensors of this Program grant you additional permission to convey the resulting work.
+
+If you modify this Program, or any covered work, by linking or combining it with Moq (or a modified version of that library), containing parts covered by the terms of the BSD 3-Clause License License, the licensors of this Program grant you additional permission to convey the resulting work.
+
+If you modify this Program, or any covered work, by linking or combining it with NUnit (or a modified version of that library), containing parts covered by the terms of the MIT License, the licensors of this Program grant you additional permission to convey the resulting work.
+
+If you modify this Program, or any covered work, by linking or combining it with NUnit.Console (or a modified version of that library), containing parts covered by the terms of the MIT License, the licensors of this Program grant you additional permission to convey the resulting work.
+
+If you modify this Program, or any covered work, by linking or combining it with NUnit3TestAdapter (or a modified version of that library), containing parts covered by the terms of the MIT License, the licensors of this Program grant you additional permission to convey the resulting work.
