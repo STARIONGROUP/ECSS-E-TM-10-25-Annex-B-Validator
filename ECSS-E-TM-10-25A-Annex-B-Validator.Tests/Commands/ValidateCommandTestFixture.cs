@@ -19,17 +19,13 @@
 // </copyright>
 // -------------------------------------------------------------------------------------------------
 
-using System.IO;
-using System.Runtime.CompilerServices;
-using CDP4Common.MetaInfo;
-
 namespace com.rheagroup.validator.tests.Commands
 {
-    using System;
-    using System.Collections.Generic;
+    using System.IO;
     using System.Threading.Tasks;
     using com.rheagroup.validator.Commands;
     using com.rheagroup.validator.Reporting;
+    using CDP4Common.MetaInfo;
     using CDP4Rules;
     using Moq;
     using NUnit.Framework;
@@ -80,6 +76,19 @@ namespace com.rheagroup.validator.tests.Commands
         public async Task Verify_that_the_ValidateCommand_can_Execute()
         {
             Assert.DoesNotThrowAsync(async () => await this.validateCommand.Execute()); 
+        }
+
+        [Test]
+        public void Verify_that_CommandPropertiesCanBeGetAndSet()
+        {
+            this.validateCommand.Source = "source";
+            this.validateCommand.Target = "target";
+            this.validateCommand.Configuration = "configuration";
+
+            Assert.That(this.validateCommand.Source, Is.EqualTo("source"));
+            Assert.That(this.validateCommand.Target, Is.EqualTo("target"));
+            Assert.That(this.validateCommand.Configuration, Is.EqualTo("configuration"));
+
         }
     }
 }

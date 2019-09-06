@@ -23,7 +23,9 @@ namespace com.rheagroup.validator.Reporting
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using CDP4Rules.Common;
+    using Serilog;
 
     /// <summary>
     /// The purpose of the <see cref="ReportingService"/> is to create reports regarding the results
@@ -42,7 +44,13 @@ namespace com.rheagroup.validator.Reporting
         /// </param>
         public void Generate(string target, IEnumerable<RuleCheckResult> results)
         {
+            var sw = Stopwatch.StartNew();
+
+            Log.Logger.Information("Initiate results report");
+
             throw new NotImplementedException();
+
+            Log.Logger.Information("Results report generated in {elapsedTime} [ms]", sw.ElapsedMilliseconds);
         }
     }
 }

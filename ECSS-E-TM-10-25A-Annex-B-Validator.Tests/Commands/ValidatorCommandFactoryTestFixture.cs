@@ -53,6 +53,8 @@ namespace com.rheagroup.validator.tests.Commands
             var commandLineApplication = new CommandLineApplication();
 
             Assert.DoesNotThrow(() => this.validatorCommandFactory.Register(commandLineApplication));
+
+            Assert.That(this.validatorCommandFactory.ValidateCommand, Is.EqualTo(this.validateCommand.Object));
         }
     }
 }

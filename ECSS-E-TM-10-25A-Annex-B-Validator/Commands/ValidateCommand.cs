@@ -22,11 +22,13 @@
 namespace com.rheagroup.validator.Commands
 {
     using System;
+    using System.Diagnostics;
     using System.Linq;
     using System.Threading.Tasks;
     using CDP4Dal;
     using CDP4Rules;
     using Reporting;
+    using Serilog;
 
     /// <summary>
     /// The purpose of the <see cref="ValidateCommand"/> is t.o initiate the execution of the
@@ -106,20 +108,28 @@ namespace com.rheagroup.validator.Commands
         /// </summary>
         public async Task Execute()
         {
-            this.folderStructureValidator.Validate(this.Source);
-            var dtos = this.siteReferenceDataLibraryReader.Read(this.Source);
+            var sw = Stopwatch.StartNew();
+            Log.Logger.Information("Execute Validate Command");
 
+            this.folderStructureValidator.Validate(this.Source);
+
+            var dtos = this.siteReferenceDataLibraryReader.Read(this.Source).ToList();
+            Log.Logger.Debug("read {dtoCount} from E-TM-10-25 Annex C.3 data structure", dtos.Count);
+            
             var filUrl = new Uri(this.Source);
 
             var assembler = new Assembler(filUrl);
-
             await assembler.Synchronize(dtos);
 
-            var pocos = assembler.Cache.Values.Select(x => x.Value);
-            
-            var results = this.ruleCheckerEngine.Run(pocos);
+            var pocos = assembler.Cache.Values.Select(x => x.Value).ToList();
+            Log.Logger.Debug("Assembled {pocoCount} from E-TM-10-25 Annex C.3 data structure", pocos.Count);
+
+            var results = this.ruleCheckerEngine.Run(pocos).ToList();
+            Log.Logger.Information("Found {resultsCount} RuleCheckResults", results.Count);
 
             this.reportingService.Generate(this.Target, results);
+
+            Log.Logger.Information("Execute Validate Command in {executionTime} [ms]", sw.ElapsedMilliseconds);
         }
     }
 }

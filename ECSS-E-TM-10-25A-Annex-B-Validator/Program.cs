@@ -19,14 +19,13 @@
 // </copyright>
 // -------------------------------------------------------------------------------------------------
 
-using com.rheagroup.validator.Reporting;
-
 namespace com.rheagroup.validator
 {
     using System;
     using Autofac;
     using AutofacSerilogIntegration;
     using com.rheagroup.validator.Commands;
+    using com.rheagroup.validator.Reporting;
     using com.rheagroup.validator.Resources;
     using Microsoft.Extensions.CommandLineUtils;
     using Microsoft.Extensions.Configuration;

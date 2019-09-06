@@ -22,13 +22,15 @@
 namespace com.rheagroup.validator
 {
     using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
     using System.IO;
     using System.Linq;
-    using System.Collections.Generic;
     using CDP4Common.CommonData;
     using CDP4Common.MetaInfo;
     using CDP4Common.SiteDirectoryData;
     using CDP4JsonSerializer;
+    using Serilog;
 
     /// <summary>
     /// The purpose of the <see cref="SiteReferenceDataLibraryReader"/> is to read the <see cref="SiteReferenceDataLibrary"/> DTO's
@@ -78,11 +80,17 @@ namespace com.rheagroup.validator
         /// </param>
         public IEnumerable<CDP4Common.DTO.Thing> Read(string path)
         {
+            var sw = Stopwatch.StartNew();
+
             var directoryInfo = this.folderStructureValidator.Validate(path);
+
+            Log.Logger.Debug("Directory {dir} validated successfully", directoryInfo.FullName);
 
             var result = new List<CDP4Common.DTO.Thing>();
 
             var siteDirectoryThings = this.ReadSiteDirectoryJson(directoryInfo).ToList();
+
+            Log.Logger.Debug("Read a total of {siteDirectoryThings} from the SiteDirectory", siteDirectoryThings.Count);
 
             result.AddRange(siteDirectoryThings);
 
@@ -90,7 +98,12 @@ namespace com.rheagroup.validator
 
             foreach (var siteReferenceDataLibraryIid in siteDirectory.SiteReferenceDataLibrary)
             {
-                var referenceData = this.ReadSiteReferenceDataLibraryJson(directoryInfo, siteReferenceDataLibraryIid);
+                Log.Logger.Debug("reading DTOs from {siteReferenceDataLibraryIid}", siteReferenceDataLibraryIid);
+
+                var referenceData = this.ReadSiteReferenceDataLibraryJson(directoryInfo, siteReferenceDataLibraryIid).ToList();
+
+                Log.Logger.Debug("Read a total of {referenceData} from SiteReferenceDataLibrary {SiteReferenceDataLibrary}", referenceData.Count, siteReferenceDataLibraryIid);
+
                 result.AddRange(referenceData);
             }
 
