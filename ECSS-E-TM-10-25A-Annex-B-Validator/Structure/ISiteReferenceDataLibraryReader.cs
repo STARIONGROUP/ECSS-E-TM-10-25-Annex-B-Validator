@@ -27,7 +27,7 @@ namespace com.rheagroup.validator
     /// Definition of the <see cref="ISiteReferenceDataLibraryReader"/> that is used is to read the <see cref="SiteReferenceDataLibrary"/> DTO's
     /// from json files of a the E-TM-10-25 Annex C.3 structured folder 
     /// </summary>
-    interface ISiteReferenceDataLibraryReader
+    public interface ISiteReferenceDataLibraryReader
     {
         /// <summary>
         /// Reads reference data from an E-TM-10-25 Annex C.3 folder structure.

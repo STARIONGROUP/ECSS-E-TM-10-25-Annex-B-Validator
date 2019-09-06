@@ -21,6 +21,8 @@
 
 namespace com.rheagroup.validator.Commands
 {
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Definition of the <see cref="ICommand"/> interface used to define command-line-arguments
     /// </summary>
@@ -32,6 +34,6 @@ namespace com.rheagroup.validator.Commands
         /// <summary>
         /// Executes the <see cref="ICommand"/>
         /// </summary>
-        void Execute();
+        Task Execute();
     }
 }

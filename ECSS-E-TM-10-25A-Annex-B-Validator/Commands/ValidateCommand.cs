@@ -21,6 +21,11 @@
 
 namespace com.rheagroup.validator.Commands
 {
+    using System;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using CDP4Dal;
+    using CDP4Rules;
     using Reporting;
 
     /// <summary>
@@ -30,19 +35,50 @@ namespace com.rheagroup.validator.Commands
     public class ValidateCommand : IValidateCommand
     {
         /// <summary>
-        /// The <see cref="IReportingService"/> used to create reports of validation results
+        /// The (injected) <see cref="IFolderStructureValidator"/> used to validate the structure of
+        /// an E-TM-10-25 Annex C.3 folder structure
+        /// </summary>
+        private readonly IFolderStructureValidator folderStructureValidator;
+
+        /// <summary>
+        /// The (injected) <see cref="ISiteReferenceDataLibraryReader"/> used to deserialize
+        /// an E-TM-10-25 Annex C.3 folder structure
+        /// </summary>
+        private readonly ISiteReferenceDataLibraryReader siteReferenceDataLibraryReader;
+
+        /// <summary>
+        /// The (injected) <see cref="IRuleCheckerEngine"/> used to validate the E-TM-10-25 population
+        /// </summary>
+        private readonly IRuleCheckerEngine ruleCheckerEngine;
+
+        /// <summary>
+        /// The (injected) <see cref="IReportingService"/> used to create reports of validation results
         /// </summary>
         private readonly IReportingService reportingService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ValidateCommand"/> class.
         /// </summary>
+        /// <param name="folderStructureValidator">
+        /// The (injected) <see cref="IFolderStructureValidator"/> used to validate the structure of
+        /// an E-TM-10-25 Annex C.3 folder structure
+        /// </param>
+        /// <param name="siteReferenceDataLibraryReader">
+        /// The (injected) <see cref="ISiteReferenceDataLibraryReader"/> used to deserialize
+        /// an E-TM-10-25 Annex C.3 folder structure
+        /// </param>
+        /// <param name="ruleCheckerEngine">
+        /// The (injected) <see cref="IRuleCheckerEngine"/> used to validate the E-TM-10-25 population
+        /// </param>
         /// <param name="reportingService">
         /// The (injected) <see cref="IReportingService"/> used to create reports of validation results
         /// </param>
-        public ValidateCommand(IReportingService reportingService)
+        public ValidateCommand(IFolderStructureValidator folderStructureValidator, ISiteReferenceDataLibraryReader siteReferenceDataLibraryReader, IRuleCheckerEngine ruleCheckerEngine, IReportingService reportingService)
         {
-            this.reportingService = reportingService;
+            this.folderStructureValidator = folderStructureValidator ?? throw new ArgumentNullException(nameof(folderStructureValidator));
+            this.siteReferenceDataLibraryReader = siteReferenceDataLibraryReader ?? throw new ArgumentNullException(nameof(siteReferenceDataLibraryReader));
+            this.ruleCheckerEngine = ruleCheckerEngine ?? throw new ArgumentNullException(nameof(ruleCheckerEngine));
+            this.reportingService = reportingService ?? throw new ArgumentNullException(nameof(reportingService));
         }
 
         /// <summary>
@@ -68,9 +104,22 @@ namespace com.rheagroup.validator.Commands
         /// <summary>
         /// Executes the <see cref="ValidateCommand"/>
         /// </summary>
-        public void Execute()
+        public async Task Execute()
         {
-            throw new System.NotImplementedException();
+            this.folderStructureValidator.Validate(this.Source);
+            var dtos = this.siteReferenceDataLibraryReader.Read(this.Source);
+
+            var filUrl = new Uri(this.Source);
+
+            var assembler = new Assembler(filUrl);
+
+            await assembler.Synchronize(dtos);
+
+            var pocos = assembler.Cache.Values.Select(x => x.Value);
+            
+            var results = this.ruleCheckerEngine.Run(pocos);
+
+            this.reportingService.Generate(this.Target, results);
         }
     }
 }
