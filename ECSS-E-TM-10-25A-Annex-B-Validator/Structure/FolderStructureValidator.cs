@@ -23,19 +23,21 @@ namespace com.rheagroup.validator
 {
     using System.IO;
     using System.Linq;
-    using com.rheagroup.validator.Exceptions;
+    using Exceptions;
 
     /// <summary>
     /// The purpose of the <see cref="FolderStructureValidator"/> is to validate that the structure of
     /// a folder conforms to ECSS-E-TM-10-25 Annex C.3
     /// </summary>
-    public static class FolderStructureValidator
+    public class FolderStructureValidator : IFolderStructureValidator
     {
         /// <summary>
         /// Validates that a folder conforms to ECSS-E-TM-10-25 Annex C.3
         /// </summary>
-        /// <param name="path"></param>
-        public static DirectoryInfo Validate(string path)
+        /// <param name="path">
+        /// The path to the root of a ECSS-E-TM-10-25 Annex C.3 folder structure
+        /// </param>
+        public DirectoryInfo Validate(string path)
         {
             if (!System.IO.Directory.Exists(path))
             {
@@ -69,7 +71,7 @@ namespace com.rheagroup.validator
 
             if (directories.All(d => d.Name != "ModelReferenceDataLibraries"))
             {
-                throw new InvalidArchiveStructureException("The EngineeringModels folder is missing");
+                throw new InvalidArchiveStructureException("The ModelReferenceDataLibraries folder is missing");
             }
 
             return directoryInfo;

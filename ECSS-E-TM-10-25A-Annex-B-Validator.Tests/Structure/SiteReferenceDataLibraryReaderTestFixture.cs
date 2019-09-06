@@ -22,6 +22,7 @@
 namespace com.rheagroup.validator.tests
 {
     using System.IO;
+    using CDP4Common.MetaInfo;
     using NUnit.Framework;
 
     /// <summary>
@@ -30,6 +31,10 @@ namespace com.rheagroup.validator.tests
     [TestFixture]
     public class SiteReferenceDataLibraryReaderTestFixture
     {
+        private IFolderStructureValidator folderStructureValidator;
+
+        private IMetaDataProvider metaDataProvider;
+
         private SiteReferenceDataLibraryReader siteReferenceDataLibraryReader;
 
         private string validFolderStrucuturePath;
@@ -37,7 +42,10 @@ namespace com.rheagroup.validator.tests
         [SetUp]
         public void SetUp()
         {
-            this.siteReferenceDataLibraryReader = new SiteReferenceDataLibraryReader();
+            this.folderStructureValidator = new FolderStructureValidator();
+            this.metaDataProvider = new MetaDataProvider();
+
+            this.siteReferenceDataLibraryReader = new SiteReferenceDataLibraryReader(this.folderStructureValidator, this.metaDataProvider);
 
             this.validFolderStrucuturePath = Path.Combine(TestContext.CurrentContext.TestDirectory, "Data", "annex-c3-model");
         }

@@ -27,14 +27,25 @@ namespace com.rheagroup.validator
     using System.Collections.Generic;
     using CDP4Common.CommonData;
     using CDP4Common.MetaInfo;
+    using CDP4Common.SiteDirectoryData;
     using CDP4JsonSerializer;
 
     /// <summary>
     /// The purpose of the <see cref="SiteReferenceDataLibraryReader"/> is to read the <see cref="SiteReferenceDataLibrary"/> DTO's
     /// from json files of a the E-TM-10-25 Annex C.3 structured folder 
     /// </summary>
-    public class SiteReferenceDataLibraryReader
+    public class SiteReferenceDataLibraryReader : ISiteReferenceDataLibraryReader
     {
+        /// <summary>
+        /// The (injected) IFolderStructureValidator
+        /// </summary>
+        private readonly IFolderStructureValidator folderStructureValidator;
+
+        /// <summary>
+        /// The (IMetaDataProvider) IFolderStructureValidator
+        /// </summary>
+        private readonly IMetaDataProvider metaDataProvider;
+
         /// <summary>
         /// The <see cref="Cdp4JsonSerializer"/> used to deserialize the JSON data
         /// </summary>
@@ -43,9 +54,17 @@ namespace com.rheagroup.validator
         /// <summary>
         /// Initializes a new instance of the <see cref="SiteReferenceDataLibraryReader"/> class.
         /// </summary>
-        public SiteReferenceDataLibraryReader()
+        /// <param name="folderStructureValidator">
+        /// The (injected) <see cref="IFolderStructureValidator"/> used to validate the folders containing the E-tM-10-25 Annex C.3 population
+        /// </param>
+        /// <param name="metaDataProvider">
+        /// The (injected) <see cref="IMetaDataProvider"/> used for optimized (de)serialization of E-TM-10-25 json data
+        /// </param>
+        public SiteReferenceDataLibraryReader(IFolderStructureValidator folderStructureValidator, IMetaDataProvider metaDataProvider)
         {
-            var metaDataProvider  = StaticMetadataProvider.GetMetaDataProvider;
+            this.folderStructureValidator = folderStructureValidator ?? throw new ArgumentNullException(nameof(folderStructureValidator));
+            this.metaDataProvider  = metaDataProvider ?? throw new ArgumentNullException(nameof(metaDataProvider));
+
             var dalVersion = new Version("1.0.0");
             
             this.cdp4JsonSerializer = new Cdp4JsonSerializer(metaDataProvider, dalVersion);
@@ -59,7 +78,7 @@ namespace com.rheagroup.validator
         /// </param>
         public IEnumerable<CDP4Common.DTO.Thing> Read(string path)
         {
-            var directoryInfo = FolderStructureValidator.Validate(path);
+            var directoryInfo = this.folderStructureValidator.Validate(path);
 
             var result = new List<CDP4Common.DTO.Thing>();
 

@@ -75,8 +75,9 @@ namespace com.rheagroup.validator
 
             var builder = new ContainerBuilder();
 
-            builder.RegisterType<com.rheagroup.validator.Resources.ResourceLoader>().As<IResourceLoader>();
-            
+            builder.RegisterType<ResourceLoader>().As<IResourceLoader>();
+            builder.RegisterType<SiteReferenceDataLibraryReader>().As<ISiteReferenceDataLibraryReader>();
+            builder.RegisterType<FolderStructureValidator>().As<IFolderStructureValidator>();
             builder.RegisterType<ReportingService>().As<IReportingService>();
             builder.RegisterType<ValidateCommand>().As<IValidateCommand>();
             builder.RegisterType<ValidatorCommandFactory>().As<IValidatorCommandFactory>();
