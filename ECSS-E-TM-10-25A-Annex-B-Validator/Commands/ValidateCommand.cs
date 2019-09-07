@@ -27,6 +27,7 @@ namespace com.rheagroup.validator.Commands
     using System.Threading.Tasks;
     using CDP4Dal;
     using CDP4Rules;
+    using CDP4Rules.Common;
     using Reporting;
     using Serilog;
 
@@ -130,8 +131,15 @@ namespace com.rheagroup.validator.Commands
             Log.Logger.Debug("Assembled {pocoCount} from E-TM-10-25 Annex C.3 data structure", pocos.Count);
 
             var results = this.ruleCheckerEngine.Run(pocos).ToList();
-            Log.Logger.Information("Found {resultsCount} RuleCheckResults", results.Count);
 
+            var errors = results.Select(x => x.Severity == SeverityKind.Error).Count();
+            var warnings = results.Select(x => x.Severity == SeverityKind.Warning).Count();
+            var information = results.Select(x => x.Severity == SeverityKind.Info).Count();
+
+            Log.Logger.Information("{errors} out of {total} RuleCheckResults ", errors, results.Count);
+            Log.Logger.Information("{warnings} out of {total} RuleCheckResults ", warnings, results.Count);
+            Log.Logger.Information("{information} out of {total} RuleCheckResults ", information, results.Count);
+            
             this.reportingService.Generate(this.Target, this.ReportKind, results);
 
             Log.Logger.Information("Execute Validate Command in {executionTime} [ms]", sw.ElapsedMilliseconds);

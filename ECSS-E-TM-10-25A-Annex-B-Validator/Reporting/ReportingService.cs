@@ -23,9 +23,7 @@ namespace com.rheagroup.validator.Reporting
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using CDP4Rules.Common;
-    using Serilog;
 
     /// <summary>
     /// The purpose of the <see cref="ReportingService"/> is to create reports regarding the results
@@ -34,23 +32,49 @@ namespace com.rheagroup.validator.Reporting
     public class ReportingService : IReportingService
     {
         /// <summary>
+        /// The (injected) <see cref="ICsvReportingService"/> used to generate a CSV report
+        /// </summary>
+        private readonly ICsvReportingService csvReportingService;
+
+        /// <summary>
+        /// The (injected) <see cref="ICsvReportingService"/> used to generate a HTML report
+        /// </summary>
+        private readonly IHtmlReportingService htmlReportingService;
+
+        /// <summary>
+        /// Initializes the <see cref="ReportingService"/> class.
+        /// </summary>
+        /// <param name="csvReportingService"></param>
+        /// <param name="htmlReportingService"></param>
+        public ReportingService(ICsvReportingService csvReportingService, IHtmlReportingService htmlReportingService)
+        {
+            this.csvReportingService = csvReportingService ?? throw new ArgumentNullException(nameof(csvReportingService));
+            this.htmlReportingService = htmlReportingService ?? throw new ArgumentNullException(nameof(htmlReportingService));
+        }
+
+        /// <summary>
         /// Generates a report with the results of a validation run.
         /// </summary>
         /// <param name="target">
         /// the target path
+        /// </param>
+        /// <param name="reportKind">
+        /// The kind of report that is to be generated.
         /// </param>
         /// <param name="results">
         /// The <see cref="RuleCheckResult"/> from which a report is to be generated
         /// </param>
         public void Generate(string target, ReportKind reportKind, IEnumerable<RuleCheckResult> results)
         {
-            var sw = Stopwatch.StartNew();
-
-            Log.Logger.Information("Initiate results report");
-
-            throw new NotImplementedException();
-
-            Log.Logger.Information("Results report generated in {elapsedTime} [ms]", sw.ElapsedMilliseconds);
+            switch (reportKind)
+            {
+                case ReportKind.csv:
+                    this.csvReportingService.Generate(target, results);
+                    break;
+                case ReportKind.html:
+                    this.htmlReportingService.Generate(target, results);
+                    break;
+            }
         }
     }
 }
