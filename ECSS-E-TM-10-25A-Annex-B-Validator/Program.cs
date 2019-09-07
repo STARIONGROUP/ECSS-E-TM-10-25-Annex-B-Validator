@@ -19,6 +19,9 @@
 // </copyright>
 // -------------------------------------------------------------------------------------------------
 
+using CDP4Common.MetaInfo;
+using CDP4Rules;
+
 namespace com.rheagroup.validator
 {
     using System;
@@ -80,7 +83,9 @@ namespace com.rheagroup.validator
             builder.RegisterType<ReportingService>().As<IReportingService>();
             builder.RegisterType<ValidateCommand>().As<IValidateCommand>();
             builder.RegisterType<ValidatorCommandFactory>().As<IValidatorCommandFactory>();
-            
+            builder.RegisterType<RuleCheckerEngine>().As<IRuleCheckerEngine>();
+            builder.RegisterType<MetaDataProvider>().As<IMetaDataProvider>();
+
             builder.RegisterLogger();
 
             Log.Logger.Debug("IoC Container Configured");

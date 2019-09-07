@@ -21,7 +21,10 @@
 
 namespace com.rheagroup.validator.Commands
 {
+    using System;
+    using Reporting;
     using Microsoft.Extensions.CommandLineUtils;
+    using Serilog;
 
     /// <summary>
     /// The purpose of the <see cref="ValidatorCommandFactory"/> is to register the
@@ -65,12 +68,34 @@ namespace com.rheagroup.validator.Commands
             var targetOption = commandLineApplication.Option("-t|--target", "target directory for reporting results, if nothing is specified the current directory is used",
                 CommandOptionType.SingleValue);
 
+            var reportKindOption = commandLineApplication.Option("-to|--target-option", "kind of report that is to be generated, if nothing is specified the CSV is used",
+                CommandOptionType.SingleValue);
+
             commandLineApplication.OnExecute(() =>
             {
                 this.ValidateCommand.Configuration = configurationOption.HasValue() ? configurationOption.Value() : string.Empty;
                 this.ValidateCommand.Source= sourceOption.HasValue() ? sourceOption.Value() : string.Empty;
                 this.ValidateCommand.Configuration = targetOption.HasValue() ? targetOption.Value() : string.Empty;
 
+                ReportKind reportKind;
+                if (!reportKindOption.HasValue())
+                {
+                    reportKind = ReportKind.csv;
+                }
+                else
+                {
+                    var reportKindString = reportKindOption.Value().ToLower();
+
+                    try
+                    {
+                        this.ValidateCommand.ReportKind = EnumUtilities.ParseEnum<ReportKind>(reportKindString);
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Logger.Error("{reportKindString} is not a valid type of Report", reportKindString);
+                    }
+                }
+                
                 this.ValidateCommand.Execute();
 
                 return 0;

@@ -39,6 +39,6 @@ namespace com.rheagroup.validator.Reporting
         /// <param name="results">
         /// The <see cref="RuleCheckResult"/> from which a report is to be generated
         /// </param>
-        void Generate(string target, IEnumerable<RuleCheckResult> results);
+        void Generate(string target, ReportKind reportKind,  IEnumerable<RuleCheckResult> results);
     }
 }

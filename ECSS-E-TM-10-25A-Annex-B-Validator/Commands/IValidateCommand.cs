@@ -21,6 +21,8 @@
 
 namespace com.rheagroup.validator.Commands
 {
+    using com.rheagroup.validator.Reporting;
+
     /// <summary>
     /// Definition of the <see cref="IValidateCommand"/> interface
     /// </summary>
@@ -45,5 +47,10 @@ namespace com.rheagroup.validator.Commands
         /// of a report.
         /// </summary>
         string Target { get; set; }
+
+        /// <summary>
+        /// Gets or sets the kind of report that is to be generated
+        /// </summary>
+        ReportKind ReportKind { get; set; }
     }
 }

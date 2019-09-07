@@ -1,5 +1,5 @@
 ﻿// -------------------------------------------------------------------------------------------------
-// <copyright file="ReportingService.cs" company="RHEA System S.A.">
+// <copyright file="EnumUtilities.cs" company="RHEA System S.A.">
 //   Copyright (c) 2019 RHEA System S.A.
 //
 //   This file is part of ECSS-E-TM-10-25A Annex B Validator
@@ -19,38 +19,30 @@
 // </copyright>
 // -------------------------------------------------------------------------------------------------
 
-namespace com.rheagroup.validator.Reporting
+namespace com.rheagroup.validator
 {
     using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using CDP4Rules.Common;
-    using Serilog;
 
     /// <summary>
-    /// The purpose of the <see cref="ReportingService"/> is to create reports regarding the results
-    /// of the validation of an E-TM-10-25 Annex B population.
+    /// A helper class for handling Enumeration
     /// </summary>
-    public class ReportingService : IReportingService
+    public static class EnumUtilities
     {
         /// <summary>
-        /// Generates a report with the results of a validation run.
+        /// Parse a source string to it's equivalent enumeration representation.
         /// </summary>
-        /// <param name="target">
-        /// the target path
+        /// <param name="source">
+        /// The source string.
         /// </param>
-        /// <param name="results">
-        /// The <see cref="RuleCheckResult"/> from which a report is to be generated
-        /// </param>
-        public void Generate(string target, ReportKind reportKind, IEnumerable<RuleCheckResult> results)
+        /// <typeparam name="T">
+        /// A passed in enumeration type
+        /// </typeparam>
+        /// <returns>
+        /// The parsed enumeration entry as per the passed in type for <see cref="T"/>.
+        /// </returns>
+        public static T ParseEnum<T>(string source) where T : struct, IConvertible
         {
-            var sw = Stopwatch.StartNew();
-
-            Log.Logger.Information("Initiate results report");
-
-            throw new NotImplementedException();
-
-            Log.Logger.Information("Results report generated in {elapsedTime} [ms]", sw.ElapsedMilliseconds);
+            return (T)Enum.Parse(typeof(T), source.Replace(" ", string.Empty), true);
         }
     }
 }

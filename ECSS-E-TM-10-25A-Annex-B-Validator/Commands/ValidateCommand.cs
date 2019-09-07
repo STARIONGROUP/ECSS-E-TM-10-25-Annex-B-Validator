@@ -104,6 +104,11 @@ namespace com.rheagroup.validator.Commands
         public string Target { get; set; }
 
         /// <summary>
+        /// Gets or sets the kind of report that is to be generated
+        /// </summary>
+        public ReportKind ReportKind { get; set; }
+
+        /// <summary>
         /// Executes the <see cref="ValidateCommand"/>
         /// </summary>
         public async Task Execute()
@@ -127,7 +132,7 @@ namespace com.rheagroup.validator.Commands
             var results = this.ruleCheckerEngine.Run(pocos).ToList();
             Log.Logger.Information("Found {resultsCount} RuleCheckResults", results.Count);
 
-            this.reportingService.Generate(this.Target, results);
+            this.reportingService.Generate(this.Target, this.ReportKind, results);
 
             Log.Logger.Information("Execute Validate Command in {executionTime} [ms]", sw.ElapsedMilliseconds);
         }

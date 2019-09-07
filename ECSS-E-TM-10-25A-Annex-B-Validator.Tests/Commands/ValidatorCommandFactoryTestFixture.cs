@@ -43,7 +43,7 @@ namespace com.rheagroup.validator.tests.Commands
             this.validateCommand.Setup(x => x.Source).Returns("source");
             this.validateCommand.Setup(x => x.Target).Returns("target");
             this.validateCommand.Setup(x => x.Configuration).Returns("configuration");
-
+            
             this.validatorCommandFactory = new ValidatorCommandFactory(this.validateCommand.Object);
         }
 

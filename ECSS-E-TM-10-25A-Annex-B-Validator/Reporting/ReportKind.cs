@@ -1,5 +1,5 @@
 ﻿// -------------------------------------------------------------------------------------------------
-// <copyright file="ReportingService.cs" company="RHEA System S.A.">
+// <copyright file="ReportKind.cs" company="RHEA System S.A.">
 //   Copyright (c) 2019 RHEA System S.A.
 //
 //   This file is part of ECSS-E-TM-10-25A Annex B Validator
@@ -21,36 +21,19 @@
 
 namespace com.rheagroup.validator.Reporting
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using CDP4Rules.Common;
-    using Serilog;
-
     /// <summary>
-    /// The purpose of the <see cref="ReportingService"/> is to create reports regarding the results
-    /// of the validation of an E-TM-10-25 Annex B population.
+    /// Enumeration datatype that defines the possible kinds of result reports
     /// </summary>
-    public class ReportingService : IReportingService
+    public enum ReportKind
     {
         /// <summary>
-        /// Generates a report with the results of a validation run.
+        /// Assertion that the report is a CSV report
         /// </summary>
-        /// <param name="target">
-        /// the target path
-        /// </param>
-        /// <param name="results">
-        /// The <see cref="RuleCheckResult"/> from which a report is to be generated
-        /// </param>
-        public void Generate(string target, ReportKind reportKind, IEnumerable<RuleCheckResult> results)
-        {
-            var sw = Stopwatch.StartNew();
+        csv,
 
-            Log.Logger.Information("Initiate results report");
-
-            throw new NotImplementedException();
-
-            Log.Logger.Information("Results report generated in {elapsedTime} [ms]", sw.ElapsedMilliseconds);
-        }
+        /// <summary>
+        /// Assertion that the report is a HTML report
+        /// </summary>
+        html
     }
 }
