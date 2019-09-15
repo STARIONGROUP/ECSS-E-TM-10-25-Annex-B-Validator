@@ -21,8 +21,13 @@
 
 namespace com.rheagroup.validator.Reporting
 {
+    using System;
     using System.Collections.Generic;
+    using System.IO;
+    using DotLiquid;
     using CDP4Rules.Common;
+    using com.rheagroup.validator.Reporting.HTML;
+    using com.rheagroup.validator.Resources;
 
     /// <summary>
     /// The purpose of the <see cref="HtmlReportingService"/> is to generate an
@@ -30,6 +35,22 @@ namespace com.rheagroup.validator.Reporting
     /// </summary>
     public class HtmlReportingService : IHtmlReportingService
     {
+        /// <summary>
+        /// The (injected) <see cref="IResourceLoader"/> used to load liquid templates
+        /// </summary>
+        private readonly IResourceLoader resourceLoader;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HtmlReportingService"/> class.
+        /// </summary>
+        /// <param name="resourceLoader">
+        /// The (injected) <see cref="IResourceLoader"/> used to load liquid templates
+        /// </param>
+        public HtmlReportingService(IResourceLoader resourceLoader)
+        {
+            this.resourceLoader = resourceLoader ?? throw new ArgumentNullException(nameof(resourceLoader));
+        }
+
         /// <summary>
         /// Generates an HTML report with the results of a validation run.
         /// </summary>
@@ -41,7 +62,13 @@ namespace com.rheagroup.validator.Reporting
         /// </param>
         public void Generate(string target, IEnumerable<RuleCheckResult> results)
         {
-            throw new System.NotImplementedException();
+            var drop = new ResultsDrop(results);
+
+            string reportTemplate = this.resourceLoader.LoadEmbeddedResource("com.rheagroup.validator.Reporting.HTML.report.liquid");
+            var template = Template.Parse(reportTemplate);
+            var generatedReport = template.Render(Hash.FromAnonymousObject(new { content = drop }));
+
+            File.WriteAllText(target, generatedReport);
         }
     }
 }

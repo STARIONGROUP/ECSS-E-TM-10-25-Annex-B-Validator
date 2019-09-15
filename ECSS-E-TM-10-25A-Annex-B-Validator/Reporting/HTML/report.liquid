@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>E-TM-10-25 Validation Report - {{ content.Date }} </title>
+</head>
+<table>
+   <tr>
+      <th>ID</th>
+      <th>Description</th>
+      <th>Severity</th>
+      <th>Thing</th>
+   </tr>
+
+{% for result in content.RuleCheckResult %}
+   <tr>
+      <td> {{ result.Id }} </td>
+      <td> {{ result.Description }} </td>
+      <td> {{ result.Severity}} </td>
+      <td> {{ result.Thing}} </td>
+   </tr>
+{% endfor %}
+
+</table>
+</html>

@@ -19,8 +19,6 @@
 // </copyright>
 // -------------------------------------------------------------------------------------------------
 
-using System.Linq;
-
 namespace com.rheagroup.validator.Reporting
 {
     using System.Collections.Generic;
